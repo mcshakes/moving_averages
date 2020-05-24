@@ -5,11 +5,11 @@ import pandas_datareader as pandas_data_reader
 import matplotlib.pyplot as plt
 
 
-class MovingAverage:
+class SimpleMovingAverage:
 
-    def import_data(self, ticker):
-        data_acb = pandas_data_reader.get_data_yahoo(ticker, '24-Feb-20')
-
+    def import_data(self, ticker, date):
+        data_acb = pandas_data_reader.get_data_yahoo(ticker, date)
+        print(data_acb)
 # SMA = Simple Moving Average
 
 
