@@ -9,10 +9,10 @@ def begin():
 
     choice = input("\nGive the stock ticker to look up: ")
 
-    # print("Your input was a ", type(choice))
-
     if choice != "quit":
         print(f"You chose {choice}...")
+        print(f"We will analyze {choice} from 50 days prior")
+
         anal = Analyze(choice)
         anal.run()
     else:

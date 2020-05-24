@@ -1,5 +1,14 @@
 import sys
-from lib.moving_average import MovingAverage
+from lib.simple_moving_average import SimpleMovingAverage
+import datetime
+
+
+def _fifty_days_prior():
+    today = datetime.datetime.now()
+    delta = datetime.timedelta(days=50)
+    target = today - delta
+
+    return target.strftime("%d %b %Y")
 
 
 class Analyze:
@@ -7,5 +16,7 @@ class Analyze:
         self.ticker = ticker
 
     def run(self):
-        move_avg = MovingAverage()
-        data = move_avg.import_data(self.ticker)
+        target_date = _fifty_days_prior()
+
+        move_avg = SimpleMovingAverage()
+        data = move_avg.import_data(self.ticker, target_date)
