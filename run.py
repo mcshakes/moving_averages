@@ -3,21 +3,28 @@ from lib.analyze import Analyze
 
 
 def begin():
-    choice = None
 
-    # while choice != "quit":
+    while True:
+        try:
+            print("")
+            choice = input("\nGive the stock ticker to look up: ")
 
-    choice = input("\nGive the stock ticker to look up: ")
+            if not choice:
+                raise ValueError("Can't look up an empty space. Give a ticker")
 
-    if choice != "quit":
-        print(f"You chose {choice}...")
-        print(f"We will analyze {choice} from 50 days prior")
+            if not choice.isalpha():
+                raise ValueError("Can't take integer inputs")
 
-        anal = Analyze(choice)
-        anal.run()
-    else:
-        print(f"Your input was a {choice}. Are you sure?")
+            print("")
+            print(f"We will analyze {choice} from 50 days prior")
+
+            anal = Analyze(choice)
+            anal.run()
+            break
+        except Exception as e:
+            print("A problem => ", e)
 
 
+print("")
 print("Let's look up some Moving Averages for your favorite stock")
 begin()

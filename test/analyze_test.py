@@ -10,4 +10,4 @@ def test_analyze_accepts_string():
 
 def test_analyze_does_not_accept_integers():
     a = Analyze(123)
-    assert a.ticker != 123
+    assert pytest.raises(ValueError)
