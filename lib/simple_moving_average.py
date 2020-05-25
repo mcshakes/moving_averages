@@ -8,9 +8,8 @@ import matplotlib.pyplot as plt
 class SimpleMovingAverage:
 
     def __init__(self):
-        data = None
-        trade_buy = []
-        trade_sell = []
+        self.trade_buy = []
+        self.trade_sell = []
 
     def import_data(self, ticker, date):
         data_returned = pandas_data_reader.get_data_yahoo(ticker, date)
@@ -22,20 +21,19 @@ class SimpleMovingAverage:
 
         data_returned = data_returned[data_returned['5_SMA'].notna()]
 
-        self.data = data_returned
+        return data_returned
 
-    def moving_crossover(self, data):
-        # Trade_Buy = []
-        # Trade_Sell = []
-        for i in range(len(self.data)-1):
+    def find_moving_crossover(self, data):
+
+        for i in range(len(data)-1):
             if ((data['2_SMA'].values[i] < data['5_SMA'].values[i]) & (data['2_SMA'].values[i+1] > data['5_SMA'].values[i+1])):
                 print("Trade Call for {row} is Buy.".format(
                     row=data.index[i].date()))
-                trade_buy.append(i)
+                self.trade_buy.append(i)
             elif ((data['2_SMA'].values[i] > data['5_SMA'].values[i]) & (data['2_SMA'].values[i+1] < data['5_SMA'].values[i+1])):
                 print("Trade Call for {row} is Sell.".format(
                     row=data.index[i].date()))
-                trade_buy.append(i)
+                self.trade_sell.append(i)
 
         print(self.trade_buy)
         print(self.trade_sell)
