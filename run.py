@@ -1,5 +1,7 @@
 import sys
 from lib.analyze import Analyze
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def begin():
