@@ -20,6 +20,7 @@ class NewsHeadlines:
         parameters = {
             'q': self.ticker,  # query phrase
             'sortBy': 'popularity',  # articles from popular sources and publishers come first
+            'language': 'en',
             'pageSize': 100,  # maximum is 100 for developer version
             'apiKey': os.getenv("NEWS_API_KEY")
         }
