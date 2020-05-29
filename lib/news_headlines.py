@@ -24,7 +24,7 @@ class NewsHeadlines:
             'apiKey': os.getenv("NEWS_API_KEY")
         }
 
-        return requests.get(url, params=parameters)
+        return requests.get(self.url, params=parameters)
 
 # Convert the response to JSON format and store it in dataframe
     def json_data_frame(self, response):

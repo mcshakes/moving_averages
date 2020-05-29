@@ -1,6 +1,7 @@
 import sys
 from lib.simple_moving_average import SimpleMovingAverage
 import datetime
+from lib.news_headlines import NewsHeadlines
 
 
 def _fifty_days_prior():
@@ -19,6 +20,9 @@ class Analyze:
     def run(self):
         data = self.import_data()
         self.crossover(data)
+        self.plot_graph(data)
+
+        self.news_data()
 
     def import_data(self):
         target_date = _fifty_days_prior()
@@ -28,3 +32,14 @@ class Analyze:
 
     def crossover(self, financial_data):
         self.simple_move_avg.find_moving_crossover(financial_data)
+
+    def plot_graph(self, financial_data):
+        self.simple_move_avg.plot_avgs_crossover(financial_data)
+
+    def news_data(self):
+        url = 'https://newsapi.org/v2/everything?'
+        news = NewsHeadlines(url, self.ticker)
+        api_resp = news.extract_data()
+
+        data_frame = news.json_data_frame(api_resp)
+        print(data_frame)
