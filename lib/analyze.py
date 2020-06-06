@@ -2,6 +2,7 @@ import sys
 from lib.simple_moving_average import SimpleMovingAverage
 import datetime
 from lib.news_headlines import NewsHeadlines
+from lib.vader_scores import VaderScore
 
 
 def _fifty_days_prior():
@@ -22,7 +23,8 @@ class Analyze:
         self.crossover(data)
         self.plot_graph(data)
 
-        self.news_data()
+        data_frame = self.news_data()
+        self.vader_scores(data_frame)
 
     def import_data(self):
         target_date = _fifty_days_prior()
@@ -40,6 +42,10 @@ class Analyze:
         url = 'https://newsapi.org/v2/everything?'
         news = NewsHeadlines(url, self.ticker)
         api_resp = news.extract_data()
-
         data_frame = news.json_data_frame(api_resp)
-        print(data_frame)
+        data = news.clean(data_frame)
+        return data
+
+    def vader_scores(self, json_df):
+        vd_score = VaderScore()
+        vd_score.compound_vader_scores(json_df)

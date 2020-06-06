@@ -30,6 +30,7 @@ def begin():
             anal.run()
             break
         except Exception:
+            print("")
             traceback.print_exc()
 
 
